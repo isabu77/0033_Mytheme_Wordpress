@@ -17,7 +17,7 @@
     <header id="header">
         <h1><?php echo bloginfo('name'); ?></h1>
         <nav id="navigation">
-
+            <?php wp_nav_menu(array('theme_location' => 'main')); ?>
         </nav>
     </header>
     <div id="wrap">
@@ -27,41 +27,34 @@
                 <div id="loop">
                     <!-- bouce sur les posts -->
                     <?php while (have_posts()) : the_post(); ?>
-
                         <article>
                             <h1><?php the_title(); ?></h1>
                             <!-- post ou page ? -->
-                            <p>publié le <?php the_time('d/m/y'); ?><?php if (!is_page()) : ?> dans <?php the_category(', '); ?><?php endif; ?> 
+                            <p>publié le <?php the_time('d/m/y'); ?><?php if (!is_page()) : ?> dans <?php the_category(', '); ?><?php endif; ?>
                             </p>
                             <?php if (!is_singular()) : ?>
-                            <?php the_content(); ?> 
-
-                            <?php else: ?> 
-                                <?php the_excerpt(); ?> 
+                                <?php the_content(); ?>
+                            <?php else : ?>
+                                <?php the_excerpt(); ?>
                                 <a href="<?php the_permalink(); ?>"> lie la suite </a>
-                            <?php endif; ?> 
+                            <?php endif; ?>
                         </article>
                     <?php endwhile; ?>
-
                 </div>
-
+                <div id="pagination">
+                    <?php echo paginate_link(); ?>
+                </div>
             <?php else : ?>
-                <p>aucun résultat</p>
+                <p>Aucun résultat</p>
             <?php endif; ?>
-
         </section>
-
         <aside id="sidebar">
-
         </aside>
     </div>
-
     <footer id="footer">
-
     </footer>
     <!-- pour intégrer le js -->
     <?php wp_footer(); ?>
-
 </body>
 
 </html>
